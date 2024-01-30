@@ -1,0 +1,26 @@
+.container {
+	border: 1px solid;
+	max-width: 800px;
+	margin: 0 auto;
+
+	.mainHeading {
+		color: rgba(0, 0, 0, 0.51);
+		text-align: center;
+		margin: 16px 0px;
+	}
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+
+		select {
+			background-color: #cccdde;
+			font-size: 17px;
+			font-weight: 600;
+			padding: 12px;
+			border: none;
+			border-radius: 6px;
+			color: rgba(0, 0, 0, 0.552);
+		}
+	}
+}

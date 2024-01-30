@@ -1,12 +1,13 @@
 .container {
 	border: 1px solid;
 	max-width: 800px;
+	padding: 16px 30px;
 	margin: 0 auto;
 
 	.mainHeading {
 		color: rgba(0, 0, 0, 0.51);
 		text-align: center;
-		margin: 16px 0px;
+		margin-bottom: 16px;
 	}
 
 	.header {
@@ -21,6 +22,14 @@
 			border: none;
 			border-radius: 6px;
 			color: rgba(0, 0, 0, 0.552);
+			cursor: pointer;
 		}
+	}
+
+	.listWrapper {
+		background-color: #ecedf6;
+		margin: 12px 0px;
+		padding: 16px;
+		border-radius: 12px;
 	}
 }

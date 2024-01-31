@@ -1,8 +1,8 @@
 .container {
-	border: 1px solid;
 	max-width: 800px;
 	padding: 16px 30px;
 	margin: 0 auto;
+	z-index: 10;
 
 	.mainHeading {
 		color: rgba(0, 0, 0, 0.51);

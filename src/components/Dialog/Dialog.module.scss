@@ -4,7 +4,11 @@
 	padding: 24px;
 	border-radius: 12px;
 	background-color: #ecedf6;
-	position: relative;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 12;
 
 	h3 {
 		color: rgba(0, 0, 0, 0.5);
@@ -43,6 +47,10 @@
 				border: none;
 				font-size: 18px;
 				color: rgba(0, 0, 0, 0.8);
+
+				option {
+					padding: 8px 12px;
+				}
 			}
 		}
 	}

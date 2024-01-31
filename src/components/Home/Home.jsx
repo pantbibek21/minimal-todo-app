@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Home.module.scss';
 import Modal from '../Modal/Modal';
 import Dialog from '../Dialog/Dialog';
@@ -6,10 +6,12 @@ import Button from '../ui/Button/Button';
 import ListItem from '../ListItem/ListItem';
 
 function Home() {
-	const dialogForAddingItem = (
+	
+	const addItemDialog = (
 		<Dialog heading={'Add TODO'} mainBtnText={'Add Task'} />
 	);
-	const dialogForUpdatingItem = (
+
+	const updateItemDialog = (
 		<Dialog heading={'Update TODO'} mainBtnText={'Update Task'} />
 	);
 
@@ -24,6 +26,7 @@ function Home() {
 						color={'rgba(255, 255, 255, 0.904)'}
 						margin={'margin: 12px 10px 0px 0px'}
 						text={'Add Task'}
+			
 					></Button>
 
 					<form>
@@ -38,8 +41,7 @@ function Home() {
 				<div className={styles.listWrapper}>
 					<ul>
 						<ListItem />
-						<ListItem />
-						<ListItem />
+						<ListItem  />
 					</ul>
 				</div>
 			</div>

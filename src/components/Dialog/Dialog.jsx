@@ -3,7 +3,8 @@ import styles from './Dialog.module.scss';
 import { IoClose } from 'react-icons/io5';
 import Button from '../ui/Button/Button';
 
-function Dialog({heading, mainBtnText}) {
+function Dialog({ heading, mainBtnText }) {
+
 	return (
 		<div className={styles.wrapper}>
 			<h3>{heading}</h3>

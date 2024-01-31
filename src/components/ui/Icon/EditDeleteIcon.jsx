@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './EditDeleteIcon.module.scss';
 import { MdDelete, MdEdit } from 'react-icons/md';
 
-const EditDeleteIcon = () => {
+const EditDeleteIcon = ({handleClick}) => {
 	return (
 		<>
 			<div className={styles.iconWrapper}>
-				<MdDelete className={styles.icon} />
-				<MdEdit className={styles.icon}/>
+				<span><MdDelete className={styles.icon} /></span>
+				<span onClick={handleClick}>	<MdEdit className={styles.icon}/></span>
 			</div>
 		</>
 	);

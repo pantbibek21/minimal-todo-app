@@ -3,7 +3,7 @@ import styles from './Dialog.module.scss';
 import { IoClose } from 'react-icons/io5';
 import Button from '../ui/Button/Button';
 
-function Dialog({ heading, mainBtnText }) {
+function Dialog({ heading, mainBtnText, closeDailog }) {
 
 	return (
 		<div className={styles.wrapper}>
@@ -30,7 +30,7 @@ function Dialog({ heading, mainBtnText }) {
 				<Button bgColor={'#cccdde'} color={'#646681'} text={'Cancel'}></Button>
 			</form>
 
-			<div className={styles.cross}>
+			<div className={styles.cross} onClick={closeDailog}>
 				<IoClose className={styles.closeIcon} />
 			</div>
 		</div>

@@ -30,15 +30,7 @@ function Home() {
 	const [items, setItems] = useState(listItems);
 	const [addItemDialog, setAddItemDailog] = useState(false);
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
-
-
-	const addItemDialogBox = (
-		<Dialog heading={'Add TODO'} mainBtnText={'Add Task'} />
-	);
-
-	const updateItemDialogBox = (
-		<Dialog heading={'Update TODO'} mainBtnText={'Update Task'} />
-	);
+	const [isDialogClosed, setIsDialogClosed] = useState(true);
 
 	const handleDeleteItem = (deleledId)=>{
 		let updatedItems = items.filter(item=> item.id != deleledId);
@@ -52,6 +44,21 @@ function Home() {
 	const handleUpdateItem = ()=>{
 		setUpdateItemDailog(true);
 	}
+
+	const closeDailog = ()=>{
+		setAddItemDailog(false);
+		setUpdateItemDailog(false);
+	}
+
+
+	const addItemDialogBox = (
+		<Dialog heading={'Add TODO'} mainBtnText={'Add Task'}  closeDailog= {closeDailog} />
+	);
+
+	const updateItemDialogBox = (
+		<Dialog heading={'Update TODO'} mainBtnText={'Update Task'} closeDailog= {closeDailog}/>
+	);
+
 
 	return (
 		<>
@@ -84,8 +91,8 @@ function Home() {
 					</ul>
 				</div>
 
-				{addItemDialog && <Modal>{addItemDialogBox}</Modal> }
-				{updateItemDialog && <Modal>{updateItemDialogBox}</Modal>}
+				{addItemDialog && <Modal>{addItemDialogBox}</Modal>  }
+				{updateItemDialog && <Modal>{updateItemDialogBox}</Modal> }
 				
 			</div>
 		</>

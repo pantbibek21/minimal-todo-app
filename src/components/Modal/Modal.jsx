@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from './Modal.module.scss';
 
-function Modal({ dialog }) {
+function Modal({ children }) {
   return (
     <div className={styles.backdrop}>
-      {dialog}
+      {children}
     </div>
   );
 }

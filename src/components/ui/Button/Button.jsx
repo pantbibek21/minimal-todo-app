@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Button.module.scss';
 
-function Button({ bgColor, color, margin, text }) {
+function Button({ bgColor, color, margin, text, handleAddItem }) {
 	return (
 		<button
 			style={{
@@ -10,6 +10,7 @@ function Button({ bgColor, color, margin, text }) {
 				margin: `${margin}`,
 				text: `${text}`,
 			}}
+			onClick={handleAddItem}
 		>
 			{text}
 		</button>

@@ -3,7 +3,7 @@ import styles from './ListItem.module.scss';
 import EditDeleteIcon from '../ui/Icon/EditDeleteIcon';
 
 
-const ListItem = () => {
+const ListItem = ({data, handleDeleteItem, handleUpdateItem}) => {
 	return (
 		
 				<li>
@@ -12,15 +12,15 @@ const ListItem = () => {
 							<input type="checkbox" />
 						</div>
 						<div className={styles.description}>
-							<h3 className={styles.listHeading}>Different Types of Data</h3>
+							<h3 className={styles.listHeading}>{data.name}</h3>
 							<p>
-								<span className={styles.time}>7:21 AM, </span>
-								<span className={styles.date}>01/30/2024</span>
+								<span className={styles.time}>{data.time}, </span>
+								<span className={styles.date}>{data.date}</span>
 							</p>
 						</div>
 					</div>
 
-					<EditDeleteIcon />
+					<EditDeleteIcon handleDeleteItem = {handleDeleteItem} handleUpdateItem={handleUpdateItem}/>
 				</li>
 			
 	);

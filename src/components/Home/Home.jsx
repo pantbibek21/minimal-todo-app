@@ -33,7 +33,7 @@ function Home() {
 	const [items, setItems] = useState(listItems);
 	const [addItemDialog, setAddItemDailog] = useState(false);
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
-	const [isDialogClosed, setIsDialogClosed] = useState(true);
+	const [updateData, setUpdateData] = useState();
 
 	const handleDeleteItem = deleledId => {
 		let updatedItems = items.filter(item => item.id != deleledId);
@@ -55,6 +55,11 @@ function Home() {
 	}
 
 	const handleAddTask = data => {
+		if(data.name == ''){
+			console.log("Error: Task cannot be empty");
+			return false;
+		}
+
 		setItems(prevItems => {
 			let newId = (items[0]?.id ?? 0) + 1;
 			let newItem = { ...data, id: newId };
@@ -68,7 +73,8 @@ function Home() {
 
 	const handleUpdateItem = updateId => {
 		console.log(updateId);
-		console.log(items[updateId - 1]);
+		console.log(items[updateId]);
+		setUpdateData(items[updateId]);
 		setUpdateItemDailog(true);
 	};
 
@@ -92,6 +98,7 @@ function Home() {
 			heading={'Update TODO'}
 			mainBtnText={'Update Task'}
 			closeDailog={closeDailog}
+			updateData = {updateData}
 		/>
 	);
 

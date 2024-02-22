@@ -4,7 +4,7 @@ import { IoClose } from 'react-icons/io5';
 import Button from '../ui/Button/Button';
 import EditDeleteIcon from '../ui/Icon/EditDeleteIcon';
 
-function Dialog({ heading, mainBtnText, closeDailog, handleAddTask }) {
+function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData }) {
 	const [title, setTitle] = useState('');
 
 	const getInitialState = () => {
@@ -66,7 +66,7 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask }) {
 					<input
 						type="text"
 						id="title"
-						value={title}
+						value={updateData.name || title}
 						onChange={e => setTitle(e.target.value)}
 					/>
 				</div>
@@ -75,7 +75,7 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask }) {
 					<label htmlFor="select">Status</label>
 					<select
 						id="select"
-						value={value} onChange={handleChange}
+						value={updateData.status || value} onChange={handleChange}
 					>
 						<option value="incomplete">Incomplete</option>
 						<option value="complete">Complete</option>

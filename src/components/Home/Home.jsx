@@ -46,12 +46,12 @@ function Home() {
 
 	function sortListItemsArray(arr) {
 		let newArr = [];
-    	arr.forEach((item, index)=>{
-        item.id = index;
-        newArr.push(item);
-    })
-   
-	return newArr;
+		arr.forEach((item, index) => {
+			item.id = index;
+			newArr.push(item);
+		});
+
+		return newArr;
 	}
 
 	const handleAddTask = data => {
@@ -64,12 +64,11 @@ function Home() {
 		});
 
 		setAddItemDailog(false);
-	
 	};
 
-	const handleUpdateItem = (updateId) => {
+	const handleUpdateItem = updateId => {
 		console.log(updateId);
-		console.log(items[updateId-1]);
+		console.log(items[updateId - 1]);
 		setUpdateItemDailog(true);
 	};
 
@@ -95,6 +94,10 @@ function Home() {
 			closeDailog={closeDailog}
 		/>
 	);
+
+	const placeholderText = <div className={styles.placeholder}>
+	<span>No Todos</span>
+</div>;
 
 	return (
 		<>
@@ -128,10 +131,14 @@ function Home() {
 								handleDeleteItem={() => {
 									handleDeleteItem(item.id ?? 0);
 								}}
-								handleUpdateItem={()=>{handleUpdateItem(item.id??0)}}
+								handleUpdateItem={() => {
+									handleUpdateItem(item.id ?? 0);
+								}}
 							/>
 						))}
 					</ul>
+
+					{items.length == 0 ? placeholderText : ''}
 				</div>
 
 				{addItemDialog && <Modal>{addItemDialogBox}</Modal>}

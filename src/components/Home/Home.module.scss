@@ -31,5 +31,19 @@
 		margin: 12px 0px;
 		padding: 16px;
 		border-radius: 12px;
+		min-height: 80px;
+		position: relative;
+
+		.placeholder {
+			background-color: #dedfe1;
+			position: absolute;
+			padding: 8px;
+			border-radius: 8px;
+			font-weight: 500;
+			color: rgba(0, 0, 0, 0.534);
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
 	}
 }

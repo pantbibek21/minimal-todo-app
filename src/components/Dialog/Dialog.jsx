@@ -66,7 +66,7 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData }
 					<input
 						type="text"
 						id="title"
-						value={updateData.name || title}
+						value={updateData == undefined ? title : updateData.name}
 						onChange={e => setTitle(e.target.value)}
 					/>
 				</div>
@@ -75,8 +75,9 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData }
 					<label htmlFor="select">Status</label>
 					<select
 						id="select"
-						value={updateData.status || value} onChange={handleChange}
+						value={updateData == undefined ? value :  updateData.status} onChange={handleChange}
 					>
+						<option value="inprogess">Inprogress</option>
 						<option value="incomplete">Incomplete</option>
 						<option value="complete">Complete</option>
 					</select>

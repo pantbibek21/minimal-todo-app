@@ -123,6 +123,7 @@ function Home() {
 					<form>
 						<select name="select" id="filter">
 							<option value="all">All</option>
+							<option value="inprogress">Inprogress</option>
 							<option value="incomplete">Incomplete</option>
 							<option value="complete">Complete</option>
 						</select>

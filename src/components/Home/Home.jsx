@@ -10,18 +10,21 @@ const listItems = [
 		name: 'Different Types of Data',
 		time: '7:34 AM',
 		date: '01/30/2024',
+		status: "complete",
 		id: 1,
 	},
 	{
 		name: 'Different Types of Function',
 		time: '7:34 AM',
 		date: '01/30/2024',
+		status: "uncomplete",
 		id: 2,
 	},
 	{
 		name: 'Different Types of Class',
 		time: '7:34 AM',
 		date: '01/30/2024',
+		status: "inprogress",
 		id: 3,
 	},
 ];
@@ -41,18 +44,24 @@ function Home() {
 		setAddItemDailog(true);
 	}
 
+	const handleAddTask = (data)=>{
+		
+		console.log(data);
+	}
+
 	const handleUpdateItem = ()=>{
 		setUpdateItemDailog(true);
 	}
 
-	const closeDailog = ()=>{
+	const closeDailog = (e)=>{
+		e.preventDefault();
 		setAddItemDailog(false);
 		setUpdateItemDailog(false);
 	}
 
 
 	const addItemDialogBox = (
-		<Dialog heading={'Add TODO'} mainBtnText={'Add Task'}  closeDailog= {closeDailog} />
+		<Dialog heading={'Add TODO'} mainBtnText={'Add Task'}  closeDailog= {closeDailog} handleAddTask = {handleAddTask} />
 	);
 
 	const updateItemDialogBox = (
@@ -71,7 +80,7 @@ function Home() {
 						color={'rgba(255, 255, 255, 0.904)'}
 						margin={'margin: 12px 10px 0px 0px'}
 						text={'Add Task'}
-						handleAddItem={handleAddItem}
+						onClick={handleAddItem}
 					></Button>
 
 					<form>

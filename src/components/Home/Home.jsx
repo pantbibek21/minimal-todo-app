@@ -11,21 +11,21 @@ const listItems = [
 		time: '7:34 AM',
 		date: '01/30/2024',
 		status: 'complete',
-		id: 3,
+		id: 2,
 	},
 	{
 		name: 'Different Types of Function',
 		time: '7:34 AM',
 		date: '01/30/2024',
 		status: 'uncomplete',
-		id: 2,
+		id: 1,
 	},
 	{
 		name: 'Different Types of Class',
 		time: '7:34 AM',
 		date: '01/30/2024',
 		status: 'inprogress',
-		id: 1,
+		id: 0,
 	},
 ];
 
@@ -44,18 +44,32 @@ function Home() {
 		setAddItemDailog(true);
 	};
 
+	function sortListItemsArray(arr) {
+		let newArr = [];
+    	arr.forEach((item, index)=>{
+        item.id = index;
+        newArr.push(item);
+    })
+   
+	return newArr;
+	}
+
 	const handleAddTask = data => {
 		setItems(prevItems => {
-			let newId = items[0].id + 1;
+			let newId = (items[0]?.id ?? 0) + 1;
 			let newItem = { ...data, id: newId };
-			return [newItem, ...prevItems];
+			let newArr = sortListItemsArray([newItem, ...prevItems]);
+			console.log(newArr);
+			return newArr;
 		});
 
 		setAddItemDailog(false);
-		console.log(items);
+	
 	};
 
-	const handleUpdateItem = () => {
+	const handleUpdateItem = (updateId) => {
+		console.log(updateId);
+		console.log(items[updateId-1]);
 		setUpdateItemDailog(true);
 	};
 
@@ -110,11 +124,11 @@ function Home() {
 						{items.map(item => (
 							<ListItem
 								data={item}
-								key={item.id}
+								key={item.id ?? 0}
 								handleDeleteItem={() => {
-									handleDeleteItem(item.id);
+									handleDeleteItem(item.id ?? 0);
 								}}
-								handleUpdateItem={handleUpdateItem}
+								handleUpdateItem={()=>{handleUpdateItem(item.id??0)}}
 							/>
 						))}
 					</ul>

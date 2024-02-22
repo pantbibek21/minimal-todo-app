@@ -10,22 +10,22 @@ const listItems = [
 		name: 'Different Types of Data',
 		time: '7:34 AM',
 		date: '01/30/2024',
-		status: "complete",
-		id: 1,
+		status: 'complete',
+		id: 3,
 	},
 	{
 		name: 'Different Types of Function',
 		time: '7:34 AM',
 		date: '01/30/2024',
-		status: "uncomplete",
+		status: 'uncomplete',
 		id: 2,
 	},
 	{
 		name: 'Different Types of Class',
 		time: '7:34 AM',
 		date: '01/30/2024',
-		status: "inprogress",
-		id: 3,
+		status: 'inprogress',
+		id: 1,
 	},
 ];
 
@@ -35,39 +35,52 @@ function Home() {
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
 	const [isDialogClosed, setIsDialogClosed] = useState(true);
 
-	const handleDeleteItem = (deleledId)=>{
-		let updatedItems = items.filter(item=> item.id != deleledId);
+	const handleDeleteItem = deleledId => {
+		let updatedItems = items.filter(item => item.id != deleledId);
 		setItems(updatedItems);
-	}
+	};
 
-	const handleAddItem = ()=>{
+	const handleAddItem = () => {
 		setAddItemDailog(true);
-	}
+	};
 
-	const handleAddTask = (data)=>{
-		
-		console.log(data);
-	}
+	const handleAddTask = data => {
+		setItems(prevItems => {
+			let newId = items[0].id + 1;
+			let newItem = { ...data, id: newId };
+			return [newItem, ...prevItems];
+		});
 
-	const handleUpdateItem = ()=>{
+		setAddItemDailog(false);
+		console.log(items);
+	};
+
+	const handleUpdateItem = () => {
 		setUpdateItemDailog(true);
-	}
+	};
 
-	const closeDailog = (e)=>{
+	const closeDailog = e => {
 		e.preventDefault();
 		setAddItemDailog(false);
 		setUpdateItemDailog(false);
-	}
-
+	};
 
 	const addItemDialogBox = (
-		<Dialog heading={'Add TODO'} mainBtnText={'Add Task'}  closeDailog= {closeDailog} handleAddTask = {handleAddTask} />
+		<Dialog
+			heading={'Add TODO'}
+			mainBtnText={'Add Task'}
+			closeDailog={closeDailog}
+			handleAddTask={handleAddTask}
+		/>
 	);
 
 	const updateItemDialogBox = (
-		<Dialog heading={'Update TODO'} mainBtnText={'Update Task'} closeDailog= {closeDailog}/>
+		<Dialog
+			heading={'Update TODO'}
+			mainBtnText={'Update Task'}
+			closeDailog={closeDailog}
+		/>
 	);
-
 
 	return (
 		<>
@@ -95,14 +108,20 @@ function Home() {
 				<div className={styles.listWrapper}>
 					<ul>
 						{items.map(item => (
-							<ListItem data={item} key={item.id} handleDeleteItem = {()=>{handleDeleteItem(item.id)}} handleUpdateItem={handleUpdateItem}/>
+							<ListItem
+								data={item}
+								key={item.id}
+								handleDeleteItem={() => {
+									handleDeleteItem(item.id);
+								}}
+								handleUpdateItem={handleUpdateItem}
+							/>
 						))}
 					</ul>
 				</div>
 
-				{addItemDialog && <Modal>{addItemDialogBox}</Modal>  }
-				{updateItemDialog && <Modal>{updateItemDialogBox}</Modal> }
-				
+				{addItemDialog && <Modal>{addItemDialogBox}</Modal>}
+				{updateItemDialog && <Modal>{updateItemDialogBox}</Modal>}
 			</div>
 		</>
 	);

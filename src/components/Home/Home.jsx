@@ -34,10 +34,12 @@ function Home() {
 	const [addItemDialog, setAddItemDailog] = useState(false);
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
 	const [updateData, setUpdateData] = useState();
+	const [currentUpdateId, setCurrentUpdateId] = useState(0);
 
 	const handleDeleteItem = deleledId => {
 		let updatedItems = items.filter(item => item.id != deleledId);
-		setItems(updatedItems);
+		
+		setItems(sortListItemsArray(updatedItems));
 	};
 
 	const handleAddItem = () => {
@@ -74,9 +76,28 @@ function Home() {
 	const handleUpdateItem = updateId => {
 		console.log(updateId);
 		console.log(items[updateId]);
+		setCurrentUpdateId(updateId);
 		setUpdateData(items[updateId]);
 		setUpdateItemDailog(true);
 	};
+
+	const handleUpdateSubmit = (title, status)=>{
+		//get the current update id and update with data
+		if(title == '' || title == undefined){
+			console.log("Your data is empty, man ");
+		}
+		else {
+			console.log("We recieved your data ");
+			console.log(title, status, currentUpdateId);
+			let pastStatus = items[currentUpdateId].status;
+			items[currentUpdateId].status = (status == undefined || status == '')? pastStatus : status;
+			items[currentUpdateId].name = title;
+			let newUpdatedArray = sortListItemsArray(items);
+			setItems(newUpdatedArray);
+			setUpdateItemDailog(false);
+		}
+		
+	}
 
 	const closeDailog = e => {
 		e.preventDefault();
@@ -99,6 +120,7 @@ function Home() {
 			mainBtnText={'Update Task'}
 			closeDailog={closeDailog}
 			updateData = {updateData}
+			handleUpdateSubmit = {handleUpdateSubmit}
 		/>
 	);
 

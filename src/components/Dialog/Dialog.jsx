@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Dialog.module.scss';
 import { IoClose } from 'react-icons/io5';
 import Button from '../ui/Button/Button';
 import EditDeleteIcon from '../ui/Icon/EditDeleteIcon';
 
-function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData }) {
-	const [title, setTitle] = useState('');
-
-	const getInitialState = () => {
-		const value = "uncomplete";
-		return value;
-	  };
+function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData, handleUpdateSubmit }) {
 	
-	  const [value, setValue] = useState(getInitialState);
-	
-	  const handleChange = (e) => {
-		setValue(e.target.value);
-	  };
+	const [title, setTitle] = useState();
+	const [value, setValue] = useState();
 
+	useEffect(() => {
+		setTitle(updateData?.name || '');
+		setValue(updateData?.status);
+	}, [updateData]);
+	
 	const handleSubmit = e => {
 		e.preventDefault();
 
-		let date = getCurrentFormattedDate();
-		let time = getCurrentTime();
-
-		let data = {
-			name: title,
-			time: time,
-			date: date,
+		if(updateData == undefined){
+			let date = getCurrentFormattedDate();
+			let time = getCurrentTime();
+	
+			let data = {
+				name: title,
+				time: time,
+				date: date,
+			}
+	
+			handleAddTask(data);
 		}
-
-		handleAddTask(data);
+		else {
+			handleUpdateSubmit(title, value);
+		}
+		
 	};
 	
 	function getCurrentFormattedDate() {
@@ -66,7 +68,7 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData }
 					<input
 						type="text"
 						id="title"
-						value={updateData == undefined ? title : updateData.name}
+						value={title}
 						onChange={e => setTitle(e.target.value)}
 					/>
 				</div>
@@ -75,7 +77,7 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData }
 					<label htmlFor="select">Status</label>
 					<select
 						id="select"
-						value={updateData == undefined ? value :  updateData.status} onChange={handleChange}
+						value={value} onChange={e => setValue(e.target.value)}
 					>
 						<option value="inprogess">Inprogress</option>
 						<option value="incomplete">Incomplete</option>

@@ -36,6 +36,16 @@ function Home() {
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
 	const [updateData, setUpdateData] = useState();
 	const [currentUpdateId, setCurrentUpdateId] = useState(0);
+	const [listStatus, setListStatus] = useState('all');
+
+	let filteredItems = items.filter(item => {
+		if(listStatus == 'all'){
+			return true;
+		}
+		return (item.status == listStatus);
+		
+	});
+
 
 	useEffect(() => {
 		// Sync the `items` state with local storage
@@ -142,6 +152,14 @@ function Home() {
 		return localStorageItems;
 	}
 
+	function handleListStatusChange(currentStatus){
+		setListStatus(currentStatus);
+		console.log("current List status: " + currentStatus);
+		let filteredItems = items.filter(item => item.status == currentStatus);
+		console.log("Filtered Items: " + JSON.stringify(filteredItems));
+		
+	}
+
 	const placeholderText = <div className={styles.placeholder}>
 	<span>No Todos</span>
 </div>;
@@ -161,7 +179,7 @@ function Home() {
 					></Button>
 
 					<form>
-						<select name="select" id="filter">
+						<select name="select" id="filter" value={listStatus} onChange={(e)=>{handleListStatusChange(e.target.value)}}>
 							<option value="all">All</option>
 							<option value="inprogress">Inprogress</option>
 							<option value="uncomplete">Incomplete</option>
@@ -172,7 +190,8 @@ function Home() {
 
 				<div className={styles.listWrapper}>
 					<ul>
-						{items.map(item => (
+						{
+						filteredItems.map(item => (
 							<ListItem
 								data={item}
 								key={item.id ?? 0}

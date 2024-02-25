@@ -105,6 +105,15 @@ function Home() {
 		
 	}
 
+	const updateItemStatus = (id) => {
+		console.log("Prev status : " + items[id].status);
+		let newStatus = (items[id].status == ("uncomplete" || "inprogress")) ? "complete" : "uncomplete";
+		items[id].status = newStatus;
+		console.log("New status : " + items[id].status);
+		console.log("I reached here on from checkbox ");
+		console.log("id : " + id);
+	}
+
 	const closeDailog = e => {
 		e.preventDefault();
 		setAddItemDailog(false);
@@ -178,6 +187,8 @@ function Home() {
 								handleUpdateItem={() => {
 									handleUpdateItem(item.id ?? 0);
 								}}
+								updateItemStatus = {()=>{updateItemStatus(item.id ?? 0)}}
+								
 							/>
 						))}
 					</ul>

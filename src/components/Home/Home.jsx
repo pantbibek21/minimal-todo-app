@@ -4,39 +4,22 @@ import Modal from '../Modal/Modal';
 import Dialog from '../Dialog/Dialog';
 import Button from '../ui/Button/Button';
 import ListItem from '../ListItem/ListItem';
-
-// const listItems = [
-// 	{
-// 		name: 'Different Types of Data',
-// 		time: '7:34 AM',
-// 		date: '01/30/2024',
-// 		status: 'complete',
-// 		id: 2,
-// 	},
-// 	{
-// 		name: 'Different Types of Function',
-// 		time: '7:34 AM',
-// 		date: '01/30/2024',
-// 		status: 'uncomplete',
-// 		id: 1,
-// 	},
-// 	{
-// 		name: 'Different Types of Class',
-// 		time: '7:34 AM',
-// 		date: '01/30/2024',
-// 		status: 'inprogress',
-// 		id: 0,
-// 	},
-// ];
+import { FaCircleCheck } from "react-icons/fa6";
+import { IoMdAlert } from "react-icons/io";
 
 function Home() {
-	// const [localStorageItems, setLocalStorageItems] = useState(fetchLocalStorageItem());
 	const [items, setItems] = useState(fetchLocalStorageItem());
 	const [addItemDialog, setAddItemDailog] = useState(false);
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
 	const [updateData, setUpdateData] = useState();
 	const [currentUpdateId, setCurrentUpdateId] = useState(0);
 	const [listStatus, setListStatus] = useState('all');
+	const [errorMsg, setErrorMsg] = useState();
+	const [isError, setIsError] = useState(false);
+	const [icon, setIcon] = useState();
+
+	const successIcon = <FaCircleCheck style={{color: 'rgb(129, 201, 21)', fontSize: '24px'}} />;
+	const failedIcon = <IoMdAlert style={{color: 'red', fontSize: '24px'}} />
 
 	let filteredItems = items.filter(item => {
 		if(listStatus == 'all'){
@@ -56,6 +39,8 @@ function Home() {
 		let updatedItems = items.filter(item => item.id != deleledId);
 		
 		setItems(sortListItemsArray(updatedItems));
+		setError("Item deleted successfully!")
+		setIcon(successIcon);
 	};
 
 	const handleAddItem = () => {
@@ -74,7 +59,8 @@ function Home() {
 
 	const handleAddTask = data => {
 		if(data.name == ''){
-			console.log("Error: Task cannot be empty");
+			setError("Cannot add empty item!");
+			setIcon(failedIcon);
 			return false;
 		}
 
@@ -85,7 +71,9 @@ function Home() {
 			let newArr = sortListItemsArray([newItem, ...prevItems]);
 			return newArr;
 		});
-
+		
+		setError("Item added succesfully!");
+		setIcon(successIcon);
 		setAddItemDailog(false);
 	};
 
@@ -97,8 +85,9 @@ function Home() {
 
 	const handleUpdateSubmit = (title, status)=>{
 		//get the current update id and update with data
-		if(title == '' || title == undefined){
-			console.log("Your data is empty, man ");
+		if(title == items[currentUpdateId].name){
+			setError("Cannot update! Same value detected!");
+			setIcon(failedIcon);
 		}
 		else {
 			console.log("We recieved your data ");
@@ -109,6 +98,8 @@ function Home() {
 			// let newUpdatedArray = sortListItemsArray(items);
 			setItems([...items]);
 			setUpdateItemDailog(false);		
+			setError("Item updated successfully!")
+			setIcon(successIcon);
 		}
 		
 	}
@@ -158,6 +149,12 @@ function Home() {
 		let filteredItems = items.filter(item => item.status == currentStatus);
 		console.log("Filtered Items: " + JSON.stringify(filteredItems));
 		
+	}
+
+	function setError(err){
+		setErrorMsg(err)
+		setIsError(true);
+		setTimeout(()=>{setIsError(false);},3000)
 	}
 
 	const placeholderText = <div className={styles.placeholder}>
@@ -212,6 +209,10 @@ function Home() {
 
 				{addItemDialog && <Modal>{addItemDialogBox}</Modal>}
 				{updateItemDialog && <Modal>{updateItemDialogBox}</Modal>}
+
+				{isError && <div className={styles.errorWrapper} style={{bottom: "20px"}}>
+				{icon}	<p className={styles.errorMsg}>{errorMsg}</p>
+				</div>}
 			</div>
 		</>
 	);

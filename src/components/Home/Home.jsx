@@ -30,8 +30,8 @@ import ListItem from '../ListItem/ListItem';
 // ];
 
 function Home() {
-	const [localStorageItems, setLocalStorageItems] = useState(fetchLocalStorageItem());
-	const [items, setItems] = useState(localStorageItems);
+	// const [localStorageItems, setLocalStorageItems] = useState(fetchLocalStorageItem());
+	const [items, setItems] = useState(fetchLocalStorageItem());
 	const [addItemDialog, setAddItemDailog] = useState(false);
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
 	const [updateData, setUpdateData] = useState();
@@ -80,8 +80,6 @@ function Home() {
 	};
 
 	const handleUpdateItem = updateId => {
-		console.log(updateId);
-		console.log(items[updateId]);
 		setCurrentUpdateId(updateId);
 		setUpdateData(items[updateId]);
 		setUpdateItemDailog(true);
@@ -98,20 +96,17 @@ function Home() {
 			let pastStatus = items[currentUpdateId].status;
 			items[currentUpdateId].status = (status == undefined || status == '')? pastStatus : status;
 			items[currentUpdateId].name = title;
-			let newUpdatedArray = sortListItemsArray(items);
-			setItems(newUpdatedArray);
-			setUpdateItemDailog(false);
+			// let newUpdatedArray = sortListItemsArray(items);
+			setItems([...items]);
+			setUpdateItemDailog(false);		
 		}
 		
 	}
 
 	const updateItemStatus = (id) => {
-		console.log("Prev status : " + items[id].status);
-		let newStatus = (items[id].status == ("uncomplete" || "inprogress")) ? "complete" : "uncomplete";
+		let newStatus = ((items[id].status == "uncomplete") || (items[id].status == "inprogress")) ? "complete" : "uncomplete";
 		items[id].status = newStatus;
-		console.log("New status : " + items[id].status);
-		console.log("I reached here on from checkbox ");
-		console.log("id : " + id);
+		setItems([...items]);
 	}
 
 	const closeDailog = e => {
@@ -169,7 +164,7 @@ function Home() {
 						<select name="select" id="filter">
 							<option value="all">All</option>
 							<option value="inprogress">Inprogress</option>
-							<option value="incomplete">Incomplete</option>
+							<option value="uncomplete">Incomplete</option>
 							<option value="complete">Complete</option>
 						</select>
 					</form>

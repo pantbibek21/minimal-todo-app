@@ -13,7 +13,7 @@ const ListItem = ({data, handleDeleteItem, handleUpdateItem, updateItemStatus}) 
 
 	useEffect(()=>{
 		(data.status == "complete")? setIsChecked(true): setIsChecked(false);
-	}, [data])
+	}, [data.status])
 
 	return (
 		

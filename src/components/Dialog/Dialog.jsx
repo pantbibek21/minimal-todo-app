@@ -98,7 +98,7 @@ function Dialog({
 					>
 						<option value="inprogress">Inprogress</option>{' '}
 						{/* Corrected the value to match the state initialization */}
-						<option value="incomplete">Incomplete</option>
+						<option value="uncomplete">Uncomplete</option>
 						<option value="complete">Complete</option>
 					</select>
 				</div>

@@ -207,7 +207,7 @@ function Home() {
 						))}
 					</ul>
 
-					{items.length == 0 ? placeholderText : ''}
+					{filteredItems.length == 0 ? placeholderText : ''}
 				</div>
 
 				{addItemDialog && <Modal>{addItemDialogBox}</Modal>}

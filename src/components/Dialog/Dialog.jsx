@@ -4,61 +4,77 @@ import { IoClose } from 'react-icons/io5';
 import Button from '../ui/Button/Button';
 import EditDeleteIcon from '../ui/Icon/EditDeleteIcon';
 
-function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData, handleUpdateSubmit }) {
-	
-	const [title, setTitle] = useState();
-	const [value, setValue] = useState();
+function Dialog({
+	heading,
+	mainBtnText,
+	closeDailog,
+	handleAddTask,
+	updateData,
+	handleUpdateSubmit,
+}) {
 
+	const [title, setTitle] = useState();
+	const [optionValue, setOptionValue] = useState('inprogress'); 
+	
 	useEffect(() => {
 		setTitle(updateData?.name || '');
-		setValue(updateData?.status);
+		setOptionValue(updateData?.status || 'inprogress');
 	}, [updateData]);
-	
+
 	const handleSubmit = e => {
 		e.preventDefault();
 
-		if(updateData == undefined){
+		if (updateData == undefined) {
 			let date = getCurrentFormattedDate();
 			let time = getCurrentTime();
-	
+			
+
 			let data = {
 				name: title,
 				time: time,
 				date: date,
-			}
-	
+				status: optionValue,
+			};
+			console.log(data);
 			handleAddTask(data);
+		} else {
+			handleUpdateSubmit(title, optionValue);
 		}
-		else {
-			handleUpdateSubmit(title, value);
-		}
-		
 	};
-	
+
 	function getCurrentFormattedDate() {
 		const months = [
-		  'Jan', 'Feb', 'Mar', 'Apr',
-		  'May', 'Jun', 'Jul', 'Aug',
-		  'Sep', 'Oct', 'Nov', 'Dec'
+			'Jan',
+			'Feb',
+			'Mar',
+			'Apr',
+			'May',
+			'Jun',
+			'Jul',
+			'Aug',
+			'Sep',
+			'Oct',
+			'Nov',
+			'Dec',
 		];
-	  
+
 		const currentDate = new Date();
 		const month = months[currentDate.getMonth()];
 		const day = currentDate.getDate();
 		const year = currentDate.getFullYear();
-	  
-		const formattedDate = `${month} ${day}, ${year}`;
-	  
-		return formattedDate;
-	  }
 
-	  function getCurrentTime() {
+		const formattedDate = `${month} ${day}, ${year}`;
+
+		return formattedDate;
+	}
+
+	function getCurrentTime() {
 		const currentDate = new Date();
 		const options = { timeZone: 'Asia/Kathmandu' };
 		const localTime = currentDate.toLocaleTimeString('en-US', options);
 		return localTime;
-	  }
-	
+	}
+
 	return (
 		<div className={styles.wrapper}>
 			<h3>{heading}</h3>
@@ -77,9 +93,11 @@ function Dialog({ heading, mainBtnText, closeDailog, handleAddTask, updateData, 
 					<label htmlFor="select">Status</label>
 					<select
 						id="select"
-						value={value} onChange={e => setValue(e.target.value)}
+						value={optionValue}
+						onChange={e => setOptionValue(e.target.value)}
 					>
-						<option value="inprogess">Inprogress</option>
+						<option value="inprogress">Inprogress</option>{' '}
+						{/* Corrected the value to match the state initialization */}
 						<option value="incomplete">Incomplete</option>
 						<option value="complete">Complete</option>
 					</select>

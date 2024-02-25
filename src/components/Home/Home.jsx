@@ -1,40 +1,46 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Home.module.scss';
 import Modal from '../Modal/Modal';
 import Dialog from '../Dialog/Dialog';
 import Button from '../ui/Button/Button';
 import ListItem from '../ListItem/ListItem';
 
-const listItems = [
-	{
-		name: 'Different Types of Data',
-		time: '7:34 AM',
-		date: '01/30/2024',
-		status: 'complete',
-		id: 2,
-	},
-	{
-		name: 'Different Types of Function',
-		time: '7:34 AM',
-		date: '01/30/2024',
-		status: 'uncomplete',
-		id: 1,
-	},
-	{
-		name: 'Different Types of Class',
-		time: '7:34 AM',
-		date: '01/30/2024',
-		status: 'inprogress',
-		id: 0,
-	},
-];
+// const listItems = [
+// 	{
+// 		name: 'Different Types of Data',
+// 		time: '7:34 AM',
+// 		date: '01/30/2024',
+// 		status: 'complete',
+// 		id: 2,
+// 	},
+// 	{
+// 		name: 'Different Types of Function',
+// 		time: '7:34 AM',
+// 		date: '01/30/2024',
+// 		status: 'uncomplete',
+// 		id: 1,
+// 	},
+// 	{
+// 		name: 'Different Types of Class',
+// 		time: '7:34 AM',
+// 		date: '01/30/2024',
+// 		status: 'inprogress',
+// 		id: 0,
+// 	},
+// ];
 
 function Home() {
-	const [items, setItems] = useState(listItems);
+	const [localStorageItems, setLocalStorageItems] = useState(fetchLocalStorageItem());
+	const [items, setItems] = useState(localStorageItems);
 	const [addItemDialog, setAddItemDailog] = useState(false);
 	const [updateItemDialog, setUpdateItemDailog] = useState(false);
 	const [updateData, setUpdateData] = useState();
 	const [currentUpdateId, setCurrentUpdateId] = useState(0);
+
+	useEffect(() => {
+		// Sync the `items` state with local storage
+		localStorage.setItem('items', JSON.stringify(items));
+	}, [items]); // Depend on `items` to run this effect
 
 	const handleDeleteItem = deleledId => {
 		let updatedItems = items.filter(item => item.id != deleledId);
@@ -62,11 +68,11 @@ function Home() {
 			return false;
 		}
 
-		setItems(prevItems => {
-			let newId = (items[0]?.id ?? 0) + 1;
-			let newItem = { ...data, id: newId };
+		let newId = ((items.length == 0) ? 0 : (items[0].id + 1));
+		let newItem = { ...data, id: newId };
+		
+		setItems(prevItems=>{
 			let newArr = sortListItemsArray([newItem, ...prevItems]);
-			console.log(newArr);
 			return newArr;
 		});
 
@@ -123,6 +129,14 @@ function Home() {
 			handleUpdateSubmit = {handleUpdateSubmit}
 		/>
 	);
+
+	function fetchLocalStorageItem(){
+		let localStorageItems = JSON.parse(localStorage.getItem('items') || "[]");
+		if(localStorageItems.length == 0){
+			return [];
+		}
+		return localStorageItems;
+	}
 
 	const placeholderText = <div className={styles.placeholder}>
 	<span>No Todos</span>

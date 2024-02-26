@@ -16,11 +16,14 @@ function Dialog({
 	const [title, setTitle] = useState();
 	const [optionValue, setOptionValue] = useState('inprogress'); 
 	
+	// updates the dialog if update data is sent for updating
 	useEffect(() => {
 		setTitle(updateData?.name || '');
 		setOptionValue(updateData?.status || 'inprogress');
 	}, [updateData]);
 
+	// handles "add item" and "update item" buttons
+	//calls respective callbacks
 	const handleSubmit = e => {
 		e.preventDefault();
 
@@ -42,6 +45,7 @@ function Dialog({
 		}
 	};
 
+	// provides current date
 	function getCurrentFormattedDate() {
 		const months = [
 			'Jan',
@@ -68,6 +72,7 @@ function Dialog({
 		return formattedDate;
 	}
 
+	//provides current time
 	function getCurrentTime() {
 		const currentDate = new Date();
 		const options = { timeZone: 'Asia/Kathmandu' };

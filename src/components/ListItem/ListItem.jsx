@@ -2,15 +2,16 @@ import React, { useEffect, useState } from 'react';
 import styles from './ListItem.module.scss';
 import EditDeleteIcon from '../ui/Icon/EditDeleteIcon';
 
-
 const ListItem = ({data, handleDeleteItem, handleUpdateItem, updateItemStatus}) => {
 	const [isChecked, setIsChecked] = useState(false);
 
+	// handles checkbox and calls the callback
 	const handleCheckbox = ()=>{
 		setIsChecked(prev=>{!prev});
 		updateItemStatus();
 	}
 
+	// updates the checkbox based on data.status; for eg. while updating the status from form drop down
 	useEffect(()=>{
 		(data.status == "complete")? setIsChecked(true): setIsChecked(false);
 	}, [data.status])

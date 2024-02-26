@@ -35,7 +35,7 @@ function Dialog({
 				date: date,
 				status: optionValue,
 			};
-			console.log(data);
+			// console.log(data);
 			handleAddTask(data);
 		} else {
 			handleUpdateSubmit(title, optionValue);

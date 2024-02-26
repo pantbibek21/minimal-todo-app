@@ -90,8 +90,8 @@ function Home() {
 			setIcon(failedIcon);
 		}
 		else {
-			console.log("We recieved your data ");
-			console.log(title, status, currentUpdateId);
+			// console.log("We recieved your data ");
+			// console.log(title, status, currentUpdateId);
 			let pastStatus = items[currentUpdateId].status;
 			items[currentUpdateId].status = (status == undefined || status == '')? pastStatus : status;
 			items[currentUpdateId].name = title;
@@ -145,9 +145,9 @@ function Home() {
 
 	function handleListStatusChange(currentStatus){
 		setListStatus(currentStatus);
-		console.log("current List status: " + currentStatus);
+		// console.log("current List status: " + currentStatus);
 		let filteredItems = items.filter(item => item.status == currentStatus);
-		console.log("Filtered Items: " + JSON.stringify(filteredItems));
+		// console.log("Filtered Items: " + JSON.stringify(filteredItems));
 		
 	}
 

@@ -95,7 +95,7 @@ function Home() {
 	// handles when data is updated
 	const handleUpdateSubmit = (title, status)=>{
 		//get the current update id and update with data
-		if(title == items[currentUpdateId].name){
+		if((title == items[currentUpdateId].name) && (status == items[status])){
 			setError("Cannot update! Same value detected!");
 			setIcon(failedIcon);
 		}

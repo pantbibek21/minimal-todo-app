@@ -14,12 +14,12 @@ function Dialog({
 }) {
 
 	const [title, setTitle] = useState();
-	const [optionValue, setOptionValue] = useState('inprogress'); 
+	const [optionValue, setOptionValue] = useState('uncomplete'); 
 	
 	// updates the dialog if update data is sent for updating
 	useEffect(() => {
 		setTitle(updateData?.name || '');
-		setOptionValue(updateData?.status || 'inprogress');
+		setOptionValue(updateData?.status || 'uncomplete');
 	}, [updateData]);
 
 	// handles "add item" and "update item" buttons

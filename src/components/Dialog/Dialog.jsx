@@ -101,9 +101,10 @@ function Dialog({
 						value={optionValue}
 						onChange={e => setOptionValue(e.target.value)}
 					>
-						<option value="inprogress">Inprogress</option>{' '}
+						{' '}
 						{/* Corrected the value to match the state initialization */}
 						<option value="uncomplete">Uncomplete</option>
+						<option value="inprogress">Inprogress</option>
 						<option value="complete">Complete</option>
 					</select>
 				</div>

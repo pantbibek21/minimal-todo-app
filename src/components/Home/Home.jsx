@@ -195,7 +195,7 @@ function Home() {
 						<select name="select" id="filter" value={listStatus} onChange={(e)=>{handleListStatusChange(e.target.value)}}>
 							<option value="all">All</option>
 							<option value="inprogress">Inprogress</option>
-							<option value="uncomplete">Incomplete</option>
+							<option value="uncomplete">Uncomplete</option>
 							<option value="complete">Complete</option>
 						</select>
 					</form>
